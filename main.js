@@ -8,18 +8,25 @@ function createWindow() {
     mainWindow = new BrowserWindow({
         width: 800,
         height: 600,
+        resizable: false,
+        backgroundColor: "#28706f",
         webPreferences: {
             nodeIntegration: true,
             preload: path.resolve(__dirname, "utils", "preload.js")
-        }
+        },
+        frame: false
     });
 
     mainWindow.loadFile("index.html");
-    // mainWindow.webContents.openDevTools();
+    mainWindow.webContents.openDevTools();
 
     mainWindow.on("closed", () => {
         mainWindow = null;
     });
+
+    mainWindow.once("focus", () => {
+        console.log("Window being displayed.");
+    })
 }
 
 app.whenReady().then(() => {
@@ -36,4 +43,4 @@ app.on("window-all-closed", () => {
     if (process.platform !== "darwin") {
         app.quit();
     }
-})
+});
