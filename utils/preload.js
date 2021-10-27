@@ -1,12 +1,12 @@
-window.addEventListener('DOMContentLoaded', () => {
-    const replaceText = (selector, text) => {
-        let element = document.getElementById(selector);
-        if (element) {
-            element.innerText = text;
-        } 
-    };
+const gameManager = require("./game-manager");
 
-    for (let dependency of ["chrome", "node", "electron"]) {
-        replaceText(`${dependency}-version`, process.versions[dependency]);
+window.addEventListener('DOMContentLoaded', () => {
+    document.getElementById("close-button").addEventListener("click", () => {
+        console.log("Close button clicked.");
+        window.close();
+    });
+
+    for(let tile of document.getElementsByClassName("button-field__button")) {
+        tile.onclick = (event) => gameManager.ButtonClick(event);
     }
 });

@@ -1,0 +1,47 @@
+body {
+    background-color: #d3d3d3;
+    padding: 0px;
+    margin: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.win-message {
+    margin: 0px;
+    padding: 0px;
+    width: 400px;
+    height: 200px;
+}
+
+.win-message__message-field {
+    margin: 0px;
+    padding: 0px;
+    width: 100%;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.win-message__text {
+    font-size: 20pt;
+    font-weight: 900;
+}
+
+.win-message__close-button-field {
+    margin: 0px;
+    padding: 0px;
+    width: 100%;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.win-message__close-button {
+    margin: 0px;
+    padding: 0px;
+    width: 100px;
+    height: 50px;
+}

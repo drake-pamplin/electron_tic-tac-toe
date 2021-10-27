@@ -1,15 +1,16 @@
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
 
 // Global reference to the main window so that it is not closed when garbage collection happens
 let mainWindow;
+let messageWindow;
+let winningPlayer;
 
-function createWindow() {
+function createMainWindow() {
     mainWindow = new BrowserWindow({
-        width: 800,
-        height: 600,
+        width: 600,
+        height: 800,
         resizable: false,
-        backgroundColor: "#28706f",
         webPreferences: {
             nodeIntegration: true,
             preload: path.resolve(__dirname, "utils", "preload.js")
@@ -23,18 +24,36 @@ function createWindow() {
     mainWindow.on("closed", () => {
         mainWindow = null;
     });
+}
 
-    mainWindow.once("focus", () => {
-        console.log("Window being displayed.");
-    })
+function createMessageWindow(fileName) {
+    messageWindow = new BrowserWindow({
+        width: 400,
+        height: 200,
+        resizable: false,
+        parent: mainWindow,
+        modal: true,
+        frame: false,
+        backgroundColor: "#d3d3d3",
+        webPreferences: {
+            nodeIntegration: true,
+            preload: path.resolve(__dirname, "utils", fileName, "preload.js")
+        }
+    });
+
+    messageWindow.loadFile(path.resolve("utils", fileName, fileName + ".html"));
+
+    messageWindow.on("closed", () => {
+        messageWindow = null;
+    });
 }
 
 app.whenReady().then(() => {
-    createWindow();
+    createMainWindow();
 
     app.on("activate", () => {
         if (BrowserWindow.getAllWindows.length === 0) {
-            createWindow();
+            createMainWindow();
         }
     });
 });
@@ -43,4 +62,26 @@ app.on("window-all-closed", () => {
     if (process.platform !== "darwin") {
         app.quit();
     }
+});
+
+ipcMain.on("error", (event, arg) => {
+    createMessageWindow("error-window");
+});
+
+ipcMain.on("console", (event, message) => {
+    console.log(message);
+});
+
+ipcMain.on("win", (event, player) => {
+    console.log("Winner found.");
+    winningPlayer = player;
+    createMessageWindow("win-window");
+});
+
+ipcMain.on("get-winning-player", (event, arg) => {
+    event.returnValue = winningPlayer;
+});
+
+ipcMain.on("close-game", () => {
+    app.quit();
 });

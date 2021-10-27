@@ -4,16 +4,41 @@
         <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
         <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'">
         <title>Hello world!</title>
+        <link rel="stylesheet" href="index.css">
     </head>
     <body>
-        <h1>Hello world! Get ready for tic-tac-toe.</h1>
-        I am using Node.js <span id="node-version"></span>, Chromium <span id="chrome-version"></span>, and Electron <span id="electron-version"></span>.
-
-        <br/>
-        <button id="close-button">Close</button>
+        <div class="text-field">
+            <div class="text-field__title">
+                Tic Tac Toe
+            </div>
+            <div class="text-field__subtitle">
+                Grab a friend and see who wins!
+            </div>
+        </div>
+        <div class="button-field">
+            <div class="button-field__row">
+                <button id="0" class="button-field__button"></button>
+                <button id="1" class="button-field__button"></button>
+                <button id="2" class="button-field__button"></button>
+            </div>
+            <div class="button-field__row">
+                <button id="3" class="button-field__button"></button>
+                <button id="4" class="button-field__button"></button>
+                <button id="5" class="button-field__button"></button>
+            </div>
+            <div class="button-field__row">
+                <button id="6" class="button-field__button"></button>
+                <button id="7" class="button-field__button"></button>
+                <button id="8" class="button-field__button"></button>
+            </div>
+            <div class="button-field__close-button-row">
+                <button id="close-button" class="button-field__close-button">Close</button>
+            </div>
+        </div>
     
         <script>
             require("./utils/renderer.js");
+            require("./utils/game-manager.js");
         </script>
     </body>
 </html>
