@@ -7,6 +7,7 @@
         <link rel="stylesheet" href="index.css">
     </head>
     <body>
+        <!-- Title and subtitle field -->
         <div class="text-field">
             <div class="text-field__title">
                 Tic Tac Toe
@@ -15,7 +16,9 @@
                 Grab a friend and see who wins!
             </div>
         </div>
+        <!-- Tic tac toe grid -->
         <div class="button-field">
+            <!-- Three rows of three buttons -->
             <div class="button-field__row">
                 <button id="0" class="button-field__button"></button>
                 <button id="1" class="button-field__button"></button>
@@ -31,11 +34,16 @@
                 <button id="7" class="button-field__button"></button>
                 <button id="8" class="button-field__button"></button>
             </div>
+            <!-- Exit button added due to frameless window -->
             <div class="button-field__close-button-row">
                 <button id="close-button" class="button-field__close-button">Close</button>
             </div>
         </div>
     
+        <!-- Couple of scripts added for functionality
+            renderer.js - would contain any renderer functionality needed
+            game-manager.js - contains game logic and UI code
+        -->
         <script>
             require("./utils/renderer.js");
             require("./utils/game-manager.js");

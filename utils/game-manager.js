@@ -1,5 +1,8 @@
+// Imports:
+//  - electron: main electron tools
 const { ipcRenderer } = require('electron');
 
+// Game variable such as gameboard, player turn, asset paths, etc.
 let playerOneTurn = true;
 const newStyle = 'url("images/{}.png';
 const xPath = "X";
@@ -9,6 +12,7 @@ let gameBoard = [
     '-','-','-',
     '-','-','-'
 ];
+// List of tile values that would constitute a player win state
 const wins = [
     "012",
     "345",
@@ -20,6 +24,7 @@ const wins = [
     "246"
 ]
 
+// Cycles through the list of possible winning states to see if a winner has emerged
 const CheckForWin = () => {
     let spots = "";
     let player = playerOneTurn ? "X" : "O";
@@ -41,6 +46,7 @@ const CheckForWin = () => {
     return false;
 }
 
+// Checks to see if there are any blank spaces left; if not and no winner is declared, there is a tie
 const CheckForTie = () => {
     if (!gameBoard.includes('-')) {
         return true;
@@ -48,9 +54,18 @@ const CheckForTie = () => {
     return false;
 }
 
+// Method tied to each tic tac toe tile to register a player move
 const ButtonClick = (event) => {
+    // Button id is logged
     let buttonId = event.currentTarget.id;
 
+    // Main game logic
+    //  1. Check to see if tile is in play
+    //  2. Claim tile for player
+    //  3. Generate path to tile asset and visually represent the claim
+    //  4. Check for win or tie
+    //
+    //  If a claimed tile is selected, main process is called to display an error message
     if (gameBoard[buttonId] === '-') {
         gameBoard[buttonId] = playerOneTurn ? 'X' : 'O';
         let imagePath = newStyle.replace("{}", playerOneTurn ? xPath : oPath);
@@ -67,6 +82,7 @@ const ButtonClick = (event) => {
     }
 }
 
+// Export click method for use in preload script for button binding
 module.exports = {
     ButtonClick
 }
