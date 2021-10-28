@@ -1,11 +1,13 @@
 {
   "name": "tic-tac-toe",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Standalone tic-tac-toe game built in Electron.",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
-    "watch": "nodemon --exec electron ."
+    "watch": "nodemon --exec electron .",
+    "distWin": "electron-builder --win",
+    "distMac": "electron-builder --mac"
   },
   "repository": {
     "type": "git",
@@ -17,6 +19,15 @@
     "url": "https://github.com/drake-pamplin/electron_tic-tac-toe/issues"
   },
   "homepage": "https://github.com/drake-pamplin/electron_tic-tac-toe#readme",
+  "build": {
+    "appId": "ticTacToe",
+    "win": {
+      "target": "NSIS"
+    },
+    "mac": {
+      "category": "its.a.mac.game"
+    }
+  },
   "devDependencies": {
     "electron": "^15.3.0",
     "electron-builder": "^22.13.1",

@@ -1,3 +1,15 @@
 This repo is for my learning exercise in creating a standalone tic-tac-toe game in Electron.
 
 To run, use the command "npm start".
+
+To build on Windows:
+    1. Run "npm install" to download project dependencies for building distributable.
+    2. Run "npm run distWin".
+    3. Locate distributable in the "dist" project folder that is generated during the package process.
+    4. Double click the "tic-tac-toe Setup X.X.X.exe" program.
+
+To build on Mac:
+    1. Run "npm install" to download project dependencies for building distributable.
+    2. Run "npm run distMac".
+    3. Locate distributable in the "dist" project folder that is generated during the package process.
+    4. Double click the "tic-tac-toe Setup X.X.X.app" program.
