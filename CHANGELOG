@@ -1,2 +1,5 @@
 v0.0.1
     - Initial codebase created.
+
+v1.0.0
+    - Game runs with full two player functionality and win/tie end states.
