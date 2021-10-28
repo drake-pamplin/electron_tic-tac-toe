@@ -41,22 +41,25 @@ const CheckForWin = () => {
     return false;
 }
 
+const CheckForTie = () => {
+    if (!gameBoard.includes('-')) {
+        return true;
+    }
+    return false;
+}
+
 const ButtonClick = (event) => {
     let buttonId = event.currentTarget.id;
-    if (playerOneTurn && gameBoard[buttonId] === '-') {
-        gameBoard[buttonId] = 'X';
-        let imagePath = newStyle.replace("{}", xPath);
+
+    if (gameBoard[buttonId] === '-') {
+        gameBoard[buttonId] = playerOneTurn ? 'X' : 'O';
+        let imagePath = newStyle.replace("{}", playerOneTurn ? xPath : oPath);
         document.getElementById(buttonId).style.backgroundImage = imagePath;
         if (CheckForWin()) {
-            ipcRenderer.send("win", playerOneTurn ? "Player One" : "Player Two");
+            ipcRenderer.send("win", "Congratulations " + (playerOneTurn ? "Player One" : "Player Two"));
         }
-        playerOneTurn = !playerOneTurn;
-    } else if (!playerOneTurn && gameBoard[buttonId] === '-') {
-        gameBoard[buttonId] = 'O';
-        let imagePath = newStyle.replace("{}", oPath);
-        document.getElementById(buttonId).style.backgroundImage = imagePath;
-        if (CheckForWin()) {
-            ipcRenderer.send("win", playerOneTurn ? "Player One" : "Player Two");
+        else if (CheckForTie()) {
+            ipcRenderer.send("tie", "It's a tie");
         }
         playerOneTurn = !playerOneTurn;
     } else {

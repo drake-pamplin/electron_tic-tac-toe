@@ -4,7 +4,7 @@ const path = require('path');
 // Global reference to the main window so that it is not closed when garbage collection happens
 let mainWindow;
 let messageWindow;
-let winningPlayer;
+let endMessage;
 
 function createMainWindow() {
     mainWindow = new BrowserWindow({
@@ -72,14 +72,20 @@ ipcMain.on("console", (event, message) => {
     console.log(message);
 });
 
-ipcMain.on("win", (event, player) => {
+ipcMain.on("win", (event, winMessage) => {
     console.log("Winner found.");
-    winningPlayer = player;
-    createMessageWindow("win-window");
+    endMessage = winMessage;
+    createMessageWindow("end-window");
+});
+
+ipcMain.on("tie", (event, tieMessage) => {
+    console.log("Tie.");
+    endMessage = tieMessage;
+    createMessageWindow("end-window");
 });
 
 ipcMain.on("get-winning-player", (event, arg) => {
-    event.returnValue = winningPlayer;
+    event.returnValue = endMessage;
 });
 
 ipcMain.on("close-game", () => {

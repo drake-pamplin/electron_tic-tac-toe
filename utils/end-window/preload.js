@@ -5,5 +5,5 @@ window.addEventListener('DOMContentLoaded', () => {
         ipcRenderer.send("close-game");
     });
 
-    document.getElementById("winner").innerText = ipcRenderer.sendSync("get-winning-player");
+    document.getElementById("message").innerText = ipcRenderer.sendSync("get-winning-player");
 });
