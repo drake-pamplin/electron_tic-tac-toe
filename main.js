@@ -19,7 +19,7 @@ function createMainWindow() {
     });
 
     mainWindow.loadFile("index.html");
-    mainWindow.webContents.openDevTools();
+    // mainWindow.webContents.openDevTools();
 
     mainWindow.on("closed", () => {
         mainWindow = null;
@@ -41,7 +41,7 @@ function createMessageWindow(fileName) {
         }
     });
 
-    messageWindow.loadFile(path.resolve("utils", fileName, fileName + ".html"));
+    messageWindow.loadFile(path.resolve(__dirname, "utils", fileName, fileName + ".html"));
 
     messageWindow.on("closed", () => {
         messageWindow = null;
